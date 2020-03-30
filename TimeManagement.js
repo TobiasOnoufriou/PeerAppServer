@@ -50,7 +50,8 @@ var TimeManagement = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.user = this.user.substr(1, this.user.length - 1);
+                        this.user = this.user.substring(1, this.user.length - 1);
+                        console.log("User " + this.user);
                         SessionsJSON = {
                             "CreatorID": new mongodb_1.ObjectId(this.user),
                             "GroupName": GroupName,

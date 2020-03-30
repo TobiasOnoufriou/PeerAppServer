@@ -84,6 +84,7 @@ app.post('/sessions/setSlot', function (req, res) { return __awaiter(void 0, voi
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                console.log(req.body._id);
                 timeSlot = new TimeManagement_1.TimeManagement(req.body._id, db);
                 console.log(req.body);
                 return [4 /*yield*/, timeSlot.setTimeSlot(req.body.GroupName, req.body.users, req.body.startTime, req.body.endTime, req.body.Date).then(function (doc) {
@@ -104,7 +105,7 @@ app.post('/sessions/init', function (req, res) { return __awaiter(void 0, void 0
         switch (_a.label) {
             case 0:
                 init = new TimeManagement_1.TimeManagement(req.body._id, db);
-                return [4 /*yield*/, init.retrieveAllUsers().then(function (doc) {
+                return [4 /*yield*/, init.possibleUsersToAdd().then(function (doc) {
                         return doc;
                     })];
             case 1:
