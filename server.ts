@@ -44,6 +44,7 @@ app.get('/', function(req, res){
 });
 //When creating client side will need parse through the req Time, Date and all the users
 app.post('/sessions/setSlot', async (req:any, res:any)=>{
+    console.log(req.body._id);
     let timeSlot = new TimeManagement(req.body._id, db);
     console.log(req.body);
     //The user will send the user ids which they want to  to the group.
