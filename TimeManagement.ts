@@ -1,4 +1,3 @@
-'use strict'
 import { MongoClient, BSONType, Timestamp, ObjectId } from "mongodb";
 import { Session } from "inspector";
 import { UserSearch } from "./UserSearch";
@@ -13,7 +12,7 @@ export class TimeManagement{
     }
     //Time and Date will need to be parsed to the setTime will need to send the BSON id back to user.
     //Need to fix Promises to return in server.js file before commiting.
-    async setTimeSlot(GroupName: string, users: string, startTime: string,endTime:string, meetingDate: string): Promise<boolean>{
+    async setTimeSlot(GroupName: string, users: string, startTime: string,endTime:string, meetingDate: string){
         var sessionSetup;
         this.user = this.user.substring(1,this.user.length-1);
         console.log("User "+ this.user);
