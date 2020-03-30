@@ -18,7 +18,7 @@ export class TimeManagement{
         console.log("User "+ this.user);
         //Will need an array of users that are in the session.
         let SessionsJSON = {
-            "CreatorID": new ObjectId(this.user),
+            "CreatorID": this.user,
             "GroupName": GroupName,
             "Date":meetingDate,
             "startTime":startTime,

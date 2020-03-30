@@ -53,7 +53,7 @@ var TimeManagement = /** @class */ (function () {
                         this.user = this.user.substring(1, this.user.length - 1);
                         console.log("User " + this.user);
                         SessionsJSON = {
-                            "CreatorID": new mongodb_1.ObjectId(this.user),
+                            "CreatorID": this.user,
                             "GroupName": GroupName,
                             "Date": meetingDate,
                             "startTime": startTime,
