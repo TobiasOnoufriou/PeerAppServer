@@ -60,7 +60,7 @@ app.post('/sessions/init', async (req:any, res:any)=>{
     /*let data = await init.possibleUsersToAdd().then((doc:any)=>{
        return doc;
     });*/
-    let data = await init.retrieveAllUsers().then((doc:any) =>{
+    let data = await init.possibleUsersToAdd().then((doc:any) =>{
         return doc;
     });
     res.send(data);
