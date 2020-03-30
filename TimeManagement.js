@@ -77,7 +77,7 @@ var TimeManagement = /** @class */ (function () {
                         tempObj = void 0;
                         i = i.replace(' ', '');
                         return [4 /*yield*/, this.addUsers(i).then(function (doc) {
-                                return new mongodb_1.ObjectId(doc);
+                                return doc;
                             })];
                     case 2:
                         tempObj = _a.sent();

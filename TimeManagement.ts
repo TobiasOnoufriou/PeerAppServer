@@ -39,7 +39,7 @@ export class TimeManagement{
             let tempObj:ObjectId;
             i = i.replace(' ', '');
             tempObj = await this.addUsers(i).then((doc:any)=>{
-                return new ObjectId(doc);
+                return doc;
             });
             console.log(tempObj);
             SessionsJSON.Requested.push(tempObj);
