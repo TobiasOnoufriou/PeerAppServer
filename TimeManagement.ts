@@ -16,7 +16,7 @@ export class TimeManagement{
     async setTimeSlot(GroupName: string, users: string, startTime: string,endTime:string, meetingDate: string): Promise<boolean>{
         var sessionSetup;
         this.user = this.user.substr(1,this.user.length-1);
-        console.log(this.user);
+        console.log("User "+ this.user);
         //Will need an array of users that are in the session. 
         let SessionsJSON = {
             "CreatorID": new ObjectId(this.user),
