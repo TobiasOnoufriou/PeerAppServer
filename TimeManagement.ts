@@ -17,7 +17,7 @@ export class TimeManagement{
         var sessionSetup;
         this.user = this.user.substring(1,this.user.length-1);
         console.log("User "+ this.user);
-        //Will need an array of users that are in the session. 
+        //Will need an array of users that are in the session.
         let SessionsJSON = {
             "CreatorID": new ObjectId(this.user),
             "GroupName": GroupName,
@@ -40,7 +40,7 @@ export class TimeManagement{
             let tempObj:ObjectId;
             i = i.replace(' ', '');
             tempObj = await this.addUsers(i).then((doc:any)=>{
-                return doc;
+                return new ObjectId(doc);
             });
             console.log(tempObj);
             SessionsJSON.Requested.push(tempObj);
