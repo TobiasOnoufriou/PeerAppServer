@@ -53,7 +53,7 @@ var TimeManagement = /** @class */ (function () {
                         this.user = this.user.substring(1, this.user.length - 1);
                         console.log("User " + this.user);
                         SessionsJSON = {
-                            "CreatorID": this.user,
+                            "CreatorID": new mongodb_1.ObjectId(this.user),
                             "GroupName": GroupName,
                             "Date": meetingDate,
                             "startTime": startTime,
@@ -93,7 +93,7 @@ var TimeManagement = /** @class */ (function () {
                                 sessionSetup = false;
                             }
                         });
-                        return [2 /*return*/, true];
+                        return [2 /*return*/];
                 }
             });
         });

@@ -14,11 +14,11 @@ export class TimeManagement{
     //Need to fix Promises to return in server.js file before commiting.
     async setTimeSlot(GroupName: string, users: string, startTime: string,endTime:string, meetingDate: string){
         var sessionSetup;
-        this.user = this.user.substring(1,this.user.length-1);
+        this.user = this.user.substring(1, this.user.length -1);
         console.log("User "+ this.user);
         //Will need an array of users that are in the session.
         let SessionsJSON = {
-            "CreatorID": this.user,
+            "CreatorID": new ObjectId(this.user),
             "GroupName": GroupName,
             "Date":meetingDate,
             "startTime":startTime,
@@ -47,7 +47,6 @@ export class TimeManagement{
         this.db.collection("Sessions").insertOne(SessionsJSON, (err, BSONid)=>{
             if(err){sessionSetup = false;}
         });
-        return true;
     }
     userDeniedTime(id:string){
         this.user = this.user.substring(1, this.user.length -1);
