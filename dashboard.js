@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var bson_1 = require("./node_modules/@types/bson");
+var mongodb_1 = require("mongodb");
 var dashboard = /** @class */ (function () {
     function dashboard(db, _id) {
         this.db = db;
@@ -52,7 +52,7 @@ var dashboard = /** @class */ (function () {
                     case 0:
                         this._id = this._id.substring(1, this._id.length - 1);
                         adminDocs = [];
-                        return [4 /*yield*/, this.db.collection("Sessions").find({ "CreatorID": new bson_1.ObjectId(this._id) }).toArray().then(function (doc) {
+                        return [4 /*yield*/, this.db.collection("Sessions").find({ "CreatorID": new mongodb_1.ObjectId(this._id) }).toArray().then(function (doc) {
                                 return doc;
                             })];
                     case 1:
@@ -62,13 +62,13 @@ var dashboard = /** @class */ (function () {
                             adminDocs[i]['Creator'] = true;
                         }
                         documents = [];
-                        return [4 /*yield*/, this.db.collection("Sessions").find({ Requested: { $elemMatch: { $eq: new bson_1.ObjectId(this._id) } } }).toArray().then(function (doc) {
+                        return [4 /*yield*/, this.db.collection("Sessions").find({ Requested: { $elemMatch: { $eq: new mongodb_1.ObjectId(this._id) } } }).toArray().then(function (doc) {
                                 return doc;
                             })];
                     case 2:
                         documents = _a.sent();
                         acceptedDoc = [];
-                        return [4 /*yield*/, this.db.collection("Sessions").find({ GroupAccepted: { $elemMatch: { $eq: new bson_1.ObjectId(this._id) } } }).toArray().then(function (doc) {
+                        return [4 /*yield*/, this.db.collection("Sessions").find({ GroupAccepted: { $elemMatch: { $eq: new mongodb_1.ObjectId(this._id) } } }).toArray().then(function (doc) {
                                 console.log(doc);
                                 return doc;
                             })];

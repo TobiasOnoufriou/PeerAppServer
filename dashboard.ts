@@ -1,5 +1,4 @@
-import { ObjectId } from "./node_modules/@types/bson";
-
+import { MongoClient, BSONType, Timestamp, ObjectId } from "mongodb";
 
 export class dashboard
 { 
