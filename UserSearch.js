@@ -73,23 +73,22 @@ var UserSearch = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(usernameNew);
                         usernameNew = usernameNew.substring(1, usernameNew.length - 1);
-                        console.log(friendusername);
                         return [4 /*yield*/, this.db.collection("UserData").findOne({ username: friendusername }).then(function (doc) {
                                 var _id = doc._id;
-                                console.log(_id);
                                 _this.db.collection("UserData").findOne({ _id: new mongodb_1.ObjectId(usernameNew) }).then(function (doc) {
+                                    console.log(doc.friend_id);
                                     if (doc.friend_id.length > 0) {
                                         for (var _i = 0, _a = doc.friend_id; _i < _a.length; _i++) {
                                             var key = _a[_i];
-                                            if (doc.friend_id.hasOwnProperty(_id)) {
+                                            console.log(key._id);
+                                            console.log(_id);
+                                            if (key._id.equals(_id)) {
                                                 console.log("Has key");
-                                                return false;
                                                 break;
+                                                return false;
                                             }
                                             else {
-                                                console.log(_id);
                                                 _this.db.collection("UserData").updateOne({ _id: new mongodb_1.ObjectId(usernameNew) }, { $push: { friend_id: { _id: _id } } }, function (err, res) {
                                                     if (err)
                                                         throw err;

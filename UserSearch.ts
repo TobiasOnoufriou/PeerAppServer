@@ -32,27 +32,26 @@ export class UserSearch{
         return users;
     }
     async addFriend(friendusername:string, usernameNew:string):Promise<Boolean>{
-        console.log(usernameNew);
         usernameNew = usernameNew.substring(1, usernameNew.length -1);
         let added:Boolean
-        console.log(friendusername);
         added = await this.db.collection("UserData").findOne({username:friendusername}).then((doc:any)=>{
             let _id = doc._id;
-            console.log(_id);
             this.db.collection("UserData").findOne({_id: new ObjectId(usernameNew)}).then((doc:any)=>{
+                console.log(doc.friend_id);
                 if(doc.friend_id.length > 0){
-                for(var key of doc.friend_id){
-                    if(doc.friend_id.hasOwnProperty(_id)){
-                        console.log("Has key");
-                        return false;
-                        break;
-                    }else{
+                    for(var key of doc.friend_id){
+                        console.log(key._id);
                         console.log(_id);
-                        this.db.collection("UserData").updateOne({_id: new ObjectId(usernameNew)},{$push:{friend_id:{_id}}},function(err,res){
-                            if(err) throw err;
-                            console.log("Thing Uploaded");
-                            return true;
-                        });
+                        if(key._id.equals(_id)){
+                            console.log("Has key");
+                            break;
+                            return false;
+                        }else{
+                            this.db.collection("UserData").updateOne({_id: new ObjectId(usernameNew)},{$push:{friend_id:{_id}}},function(err,res){
+                                if(err) throw err;
+                                console.log("Thing Uploaded");
+                                return true;
+                            });
                         break;
                     }
                 }
