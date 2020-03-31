@@ -37,11 +37,8 @@ export class UserSearch{
         added = await this.db.collection("UserData").findOne({username:friendusername}).then((doc:any)=>{
             let _id = doc._id;
             this.db.collection("UserData").findOne({_id: new ObjectId(usernameNew)}).then((doc:any)=>{
-                console.log(doc.friend_id);
                 if(doc.friend_id.length > 0){
                     for(var key of doc.friend_id){
-                        console.log(key._id);
-                        console.log(_id);
                         if(key._id.equals(_id)){
                             console.log("Has key");
                             break;

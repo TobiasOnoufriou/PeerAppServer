@@ -77,12 +77,9 @@ var UserSearch = /** @class */ (function () {
                         return [4 /*yield*/, this.db.collection("UserData").findOne({ username: friendusername }).then(function (doc) {
                                 var _id = doc._id;
                                 _this.db.collection("UserData").findOne({ _id: new mongodb_1.ObjectId(usernameNew) }).then(function (doc) {
-                                    console.log(doc.friend_id);
                                     if (doc.friend_id.length > 0) {
                                         for (var _i = 0, _a = doc.friend_id; _i < _a.length; _i++) {
                                             var key = _a[_i];
-                                            console.log(key._id);
-                                            console.log(_id);
                                             if (key._id.equals(_id)) {
                                                 console.log("Has key");
                                                 break;

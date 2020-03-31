@@ -46,11 +46,16 @@ app.get('/', function(req, res){
 app.post('/sessions/setSlot', async (req:any, res:any)=>{
     console.log(req.body._id);
     let timeSlot = new TimeManagement(req.body._id, db);
-    console.log(req.body);
-    //The user will send the user ids which they want to  to the group.
-    //let users:string[] = ["812738718231","2131231","1231231232131"];
-    timeSlot.setTimeSlot(req.body.GroupName,req.body.users,req.body.startTime,req.body.endTime, req.body.Date);
-    res.send("Craeted");
+    let data;
+    if(req.body.users == "[]"){
+        data = "NULL";
+    }else{
+        //The user will send the user ids which they want to  to the group.
+        //let users:string[] = ["812738718231","2131231","1231231232131"];
+        timeSlot.setTimeSlot(req.body.GroupName,req.body.users,req.body.startTime,req.body.endTime, req.body.Date);
+        data = "Created";
+    }
+    res.send(data);
     res.end();
 });
 //This is a request to setup a session.

@@ -80,15 +80,20 @@ app.get('/', function (req, res) {
 });
 //When creating client side will need parse through the req Time, Date and all the users
 app.post('/sessions/setSlot', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var timeSlot;
+    var timeSlot, data;
     return __generator(this, function (_a) {
         console.log(req.body._id);
         timeSlot = new TimeManagement_1.TimeManagement(req.body._id, db);
-        console.log(req.body);
-        //The user will send the user ids which they want to  to the group.
-        //let users:string[] = ["812738718231","2131231","1231231232131"];
-        timeSlot.setTimeSlot(req.body.GroupName, req.body.users, req.body.startTime, req.body.endTime, req.body.Date);
-        res.send("Craeted");
+        if (req.body.users == "[]") {
+            data = "NULL";
+        }
+        else {
+            //The user will send the user ids which they want to  to the group.
+            //let users:string[] = ["812738718231","2131231","1231231232131"];
+            timeSlot.setTimeSlot(req.body.GroupName, req.body.users, req.body.startTime, req.body.endTime, req.body.Date);
+            data = "Created";
+        }
+        res.send(data);
         res.end();
         return [2 /*return*/];
     });
