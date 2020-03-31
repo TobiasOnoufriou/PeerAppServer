@@ -45,7 +45,7 @@ var dashboard = /** @class */ (function () {
     //Gets the group information like the time of the meeting and who's in the group.
     dashboard.prototype.getGroupInfo = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var adminDocs, i, documents, i, temp;
+            var adminDocs, i, documents, i, temp, jsonIndex;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -71,7 +71,8 @@ var dashboard = /** @class */ (function () {
                             documents[i] = temp;
                         }
                         adminDocs.concat(documents);
-                        return [2 /*return*/, adminDocs];
+                        jsonIndex = { 'Sessions': documents };
+                        return [2 /*return*/, jsonIndex];
                 }
             });
         });

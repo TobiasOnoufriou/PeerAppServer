@@ -12,7 +12,7 @@ export class dashboard
         this._id = _id;
     };
     //Gets the group information like the time of the meeting and who's in the group.
-    async getGroupInfo():Promise<any[]>
+    async getGroupInfo():Promise<any>
     {
 
         //This will also need to check what groups they are in.
@@ -35,8 +35,9 @@ export class dashboard
             temp["Creator"] = false;
             documents[i] = temp;
         }
-        adminDocs.concat(documents);  
-        return adminDocs;
+        adminDocs.concat(documents);
+        let jsonIndex = {'Sessions': documents};
+        return jsonIndex;
     }
     ///Will change this when the group requested actually has real users within them.
     async convertIdToUsername(doc:any[]): Promise<string[]>{

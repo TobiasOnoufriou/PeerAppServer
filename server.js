@@ -238,6 +238,7 @@ app.post('/dashboard/accessGroupInfo', function (req, res) { return __awaiter(vo
                 return [4 /*yield*/, dash.getGroupInfo()];
             case 1:
                 data = _a.sent();
+                console.log(data);
                 res.send(data);
                 res.end();
                 return [2 /*return*/];

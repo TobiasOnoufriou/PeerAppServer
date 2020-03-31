@@ -91,7 +91,7 @@ var Register = /** @class */ (function () {
                         giveData = Object.keys(temp).every(function (k) {
                             return temp[k];
                         });
-                        if (!giveData) {
+                        if (giveData) {
                             //User was registered.  
                             this.MongoClient.collection("UserData").insertOne(this.userdata);
                             data = true;
