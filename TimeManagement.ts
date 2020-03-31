@@ -163,7 +163,7 @@ export class TimeManagement{
             return doc;
         });
         let jsonIndex = {'Sessions': sessions};
-        return jsonIndex    ;
+        return jsonIndex;
     }
     async checkGroupSuccessful(sessionId){
         console.log(sessionId);

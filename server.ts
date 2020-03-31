@@ -145,7 +145,9 @@ app.post('/dashboard/accessGroupInfo', async (req:any, res:any)=>
     //let dash = new dashboard(db, req._id);
     let dash = new dashboard(db, req.body._id);
     //This will send the dashboard information to the client.
-    let data = await dash.getGroupInfo();
+    let data = await dash.getGroupInfo().then((data:any)=>{
+        return data;
+    })
     console.log(data);
     res.send(data);
     res.end();

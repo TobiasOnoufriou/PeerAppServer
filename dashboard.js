@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var bson_1 = require("./node_modules/@types/bson");
 var dashboard = /** @class */ (function () {
     function dashboard(db, _id) {
         this.db = db;
@@ -45,33 +46,42 @@ var dashboard = /** @class */ (function () {
     //Gets the group information like the time of the meeting and who's in the group.
     dashboard.prototype.getGroupInfo = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var adminDocs, i, documents, i, temp, jsonIndex;
+            var adminDocs, i, documents, acceptedDoc, i, temp, jsonIndex;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        this._id = this._id.substring(1, this._id.length - 1);
                         adminDocs = [];
-                        return [4 /*yield*/, this.db.collection("Sessions").find({ "CreatorID": this._id }).forEach(function (doc) {
-                                adminDocs.push(doc);
+                        return [4 /*yield*/, this.db.collection("Sessions").find({ "CreatorID": new bson_1.ObjectId(this._id) }).toArray().then(function (doc) {
+                                return doc;
                             })];
                     case 1:
-                        _a.sent();
+                        adminDocs = _a.sent();
                         adminDocs["Creator"] = true;
                         for (i = 0; i < adminDocs.length; i++) {
                             adminDocs[i]['Creator'] = true;
                         }
                         documents = [];
-                        return [4 /*yield*/, this.db.collection("Sessions").find({}, { _id: 0, requested: { $elemMatch: { $eq: this._id } } }).forEach(function (doc) {
-                                documents.push(doc);
+                        return [4 /*yield*/, this.db.collection("Sessions").find({ Requested: { $elemMatch: { $eq: new bson_1.ObjectId(this._id) } } }).toArray().then(function (doc) {
+                                return doc;
                             })];
                     case 2:
-                        _a.sent();
+                        documents = _a.sent();
+                        acceptedDoc = [];
+                        return [4 /*yield*/, this.db.collection("Sessions").find({ GroupAccepted: { $elemMatch: { $eq: new bson_1.ObjectId(this._id) } } }).toArray().then(function (doc) {
+                                console.log(doc);
+                                return doc;
+                            })];
+                    case 3:
+                        acceptedDoc = _a.sent();
                         for (i = 0; i < documents.length; i++) {
                             temp = documents[i];
                             temp["Creator"] = false;
                             documents[i] = temp;
                         }
-                        adminDocs.concat(documents);
-                        jsonIndex = { 'Sessions': documents };
+                        adminDocs = adminDocs.concat(documents).concat(acceptedDoc);
+                        jsonIndex = { 'Sessions': adminDocs };
+                        console.log(jsonIndex);
                         return [2 /*return*/, jsonIndex];
                 }
             });

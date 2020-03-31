@@ -15,28 +15,39 @@ export class dashboard
     async getGroupInfo():Promise<any>
     {
 
+        this._id = this._id.substring(1, this._id.length - 1);
+        
         //This will also need to check what groups they are in.
         //This will store all of the sessions which the user is in.
-        let adminDocs:JSON[] = [];
-        await this.db.collection("Sessions").find({"CreatorID": this._id}).forEach(function(doc:any) {
-           adminDocs.push(doc); 
+        let adminDocs = [];
+        adminDocs = await this.db.collection("Sessions").find({"CreatorID": new ObjectId(this._id)}).toArray().then((doc:any)=>{ 
+           
+            return doc; 
         });
         adminDocs["Creator"] = true;
         for(var i = 0; i < adminDocs.length; i++){
 
             adminDocs[i]['Creator']= true;
         }
-        let documents:JSON[] = [];
-        await this.db.collection("Sessions").find({},{_id:0, requested:{$elemMatch:{$eq:this._id}} }).forEach(function(doc:any){
-            documents.push(doc);
+        let documents = [];
+        documents = await this.db.collection("Sessions").find({Requested:{$elemMatch:{$eq: new ObjectId(this._id)}}}).toArray().then((doc:any)=>{
+            return doc;
         });
+        let acceptedDoc = [];
+        acceptedDoc = await this.db.collection("Sessions").find({GroupAccepted:{$elemMatch:{$eq: new ObjectId(this._id)}}}).toArray().then((doc:any)=>{
+            console.log(doc);
+            return doc;
+        });
+
         for(var i = 0; i < documents.length; i++){
             var temp = documents[i];
             temp["Creator"] = false;
             documents[i] = temp;
         }
-        adminDocs.concat(documents);
-        let jsonIndex = {'Sessions': documents};
+        
+        adminDocs = adminDocs.concat(documents).concat(acceptedDoc);
+        let jsonIndex = {'Sessions': adminDocs};
+        console.log(jsonIndex)
         return jsonIndex;
     }
     ///Will change this when the group requested actually has real users within them.
