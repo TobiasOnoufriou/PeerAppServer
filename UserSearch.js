@@ -55,7 +55,7 @@ var UserSearch = /** @class */ (function () {
                         console.log(user);
                         this._id = this._id.substring(1, this._id.length - 1);
                         rgx = new RegExp("^" + user);
-                        return [4 /*yield*/, this.db.collection("UserData").find({ $and: [{ username: rgx }, { _id: new mongodb_1.ObjectId(this._id) }] }).toArray()
+                        return [4 /*yield*/, this.db.collection("UserData").find({ $and: [{ username: rgx }, { _id: { $ne: new mongodb_1.ObjectId(this._id) } }] }).toArray()
                                 .then(function (doc) {
                                 return doc;
                             })];
