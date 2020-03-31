@@ -110,25 +110,37 @@ var TimeManagement = /** @class */ (function () {
     };
     //Function will be used to accept that the user wants to go along with the meeting.
     TimeManagement.prototype.userAcceptedTime = function (id) {
-        this.user = this.user.substring(1, this.user.length - 1);
-        //id = id.substring(1, id.length -1)
-        this.user = this.user.replace('"', '');
-        id = id.replace('"', '');
-        console.log(id);
-        var queryDelete = {};
-        //_id = "5e31956f345b173618fc3ec1" TEST _id
-        //This will delete the value within the JSON array.
-        queryDelete["Requested." + new mongodb_1.ObjectId(this.user)] = null;
-        this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(id) }, { $pull: { Requested: new mongodb_1.ObjectId(this.user) } }, function (err, collection) {
-            if (err)
-                throw err;
+        return __awaiter(this, void 0, void 0, function () {
+            var queryDelete, determine;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.user = this.user.substring(1, this.user.length - 1);
+                        //id = id.substring(1, id.length -1)
+                        this.user = this.user.replace('"', '');
+                        id = id.replace('"', '');
+                        console.log(id);
+                        queryDelete = {};
+                        //_id = "5e31956f345b173618fc3ec1" TEST _id
+                        //This will delete the value within the JSON array.
+                        queryDelete["Requested." + new mongodb_1.ObjectId(this.user)] = null;
+                        this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(id) }, { $pull: { Requested: new mongodb_1.ObjectId(this.user) } }, function (err, collection) {
+                            if (err)
+                                throw err;
+                        });
+                        this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(id) }, { $push: { "GroupAccepted": new mongodb_1.ObjectId(this.user) } }, function (err, collection) {
+                            if (err)
+                                throw err;
+                            console.log("Updating");
+                        });
+                        return [4 /*yield*/, this.checkGroupSuccessful(id).then(function (determine) {
+                            })];
+                    case 1:
+                        determine = _a.sent();
+                        return [2 /*return*/, true];
+                }
+            });
         });
-        this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(id) }, { $push: { "GroupAccepted": new mongodb_1.ObjectId(this.user) } }, function (err, collection) {
-            if (err)
-                throw err;
-            console.log("Updating");
-        });
-        return true;
     };
     //Adds a user to the session collection in mongo also allow for adding multiple users at once.
     TimeManagement.prototype.addUsers = function (username) {
@@ -290,6 +302,35 @@ var TimeManagement = /** @class */ (function () {
                         sessions = _a.sent();
                         jsonIndex = { 'Sessions': sessions };
                         return [2 /*return*/, jsonIndex];
+                }
+            });
+        });
+    };
+    TimeManagement.prototype.checkGroupSuccessful = function (sessionId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var determine;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log(sessionId);
+                        return [4 /*yield*/, this.db.collection("Sessions").findOne({ _id: new mongodb_1.ObjectId(sessionId) }).then(function (doc) {
+                                console.log(doc);
+                                if (doc.Requested.length <= 0) {
+                                    _this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(sessionId) }, { $set: { SessionActive: true } }, function (err, collection) {
+                                        if (err)
+                                            throw err;
+                                        console.log("Session now active");
+                                    });
+                                    return true;
+                                }
+                                else {
+                                    return false;
+                                }
+                            })];
+                    case 1:
+                        determine = _a.sent();
+                        return [2 /*return*/, determine];
                 }
             });
         });

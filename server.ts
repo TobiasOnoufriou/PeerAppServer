@@ -120,7 +120,7 @@ app.post('/sessions/denyRequest',async (req:any, res: any)=>{
 //Need to send the page the user is on.
 //or could have a button for view more results
 app.post('/friend/searchFriend', async (req:any, res:any)=>{
-    let search = new UserSearch(req.body.search/*This will need to replaced with req.search*/, db, req.body._id);
+    let search = new UserSearch(req.body.search, db, req.body._id);
     let promise = await search.searchUsername().then((promise:string[])=>{
         return promise;
      });

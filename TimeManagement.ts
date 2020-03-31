@@ -58,7 +58,7 @@ export class TimeManagement{
         }); 
     }
     //Function will be used to accept that the user wants to go along with the meeting.
-    userAcceptedTime(id:string):boolean{
+    async userAcceptedTime(id:string):Promise<boolean>{
         this.user = this.user.substring(1, this.user.length -1);
         //id = id.substring(1, id.length -1)
         this.user = this.user.replace('"', '');
@@ -75,6 +75,9 @@ export class TimeManagement{
         this.db.collection("Sessions").updateOne({_id:new ObjectId(id)},{$push:{"GroupAccepted":new ObjectId(this.user)}}, (err:any, collection:any)=>{
             if(err) throw err;
             console.log("Updating");
+        });
+        let determine = await this.checkGroupSuccessful(id).then((determine) =>{
+
         });
         return true;
     }
@@ -162,5 +165,22 @@ export class TimeManagement{
         let jsonIndex = {'Sessions': sessions};
         return jsonIndex    ;
     }
+    async checkGroupSuccessful(sessionId){
+        console.log(sessionId);
+        let determine = await this.db.collection("Sessions").findOne({_id:new ObjectId(sessionId)}).then((doc:any) =>{
+            console.log(doc);
+            if(doc.Requested.length <= 0){
+                this.db.collection("Sessions").updateOne({_id:new ObjectId(sessionId)},{$set:{SessionActive: true}}, (err, collection)=>{
+                    if(err)throw err;
+                    console.log("Session now active");
+                });
+                return true;
+            }else{
+                return false;
+            }
+        });
+        return determine;
+    }
+    
 
 }

@@ -190,7 +190,7 @@ app.post('/friend/searchFriend', function (req, res) { return __awaiter(void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                search = new UserSearch_1.UserSearch(req.body.search /*This will need to replaced with req.search*/, db, req.body._id);
+                search = new UserSearch_1.UserSearch(req.body.search, db, req.body._id);
                 return [4 /*yield*/, search.searchUsername().then(function (promise) {
                         return promise;
                     })];
