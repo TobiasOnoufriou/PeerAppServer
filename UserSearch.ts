@@ -27,7 +27,8 @@ export class UserSearch{
         var rgx = new RegExp("^" + user);
         //Problem here with the searching of users.
         return await this.db.collection("UserData").find({$and:[{username: rgx}, {_id:{$ne: new ObjectId(this._id)}}]}).toArray()
-        .then(doc =>{
+        .then((err, doc) =>{
+            if(err)throw err;
             return doc;
         });
     }
