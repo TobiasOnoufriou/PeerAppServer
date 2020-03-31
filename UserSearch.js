@@ -47,7 +47,7 @@ var UserSearch = /** @class */ (function () {
     //May return the _id.
     UserSearch.prototype.searchUsername = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var user, users, rgx;
+            var user, users, rgx, friends;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -55,12 +55,17 @@ var UserSearch = /** @class */ (function () {
                         console.log(user);
                         this._id = this._id.substring(1, this._id.length - 1);
                         rgx = new RegExp("^" + user);
-                        return [4 /*yield*/, this.db.collection("UserData").find({ $and: [{ username: rgx }, { _id: { $ne: new mongodb_1.ObjectId(this._id) } }] }).toArray()
+                        return [4 /*yield*/, this.db.collection("UserData").findOne({ _id: new mongodb_1.ObjectId(this._id) }).then(function (friends) {
+                                return friends.friend_id;
+                            })];
+                    case 1:
+                        friends = _a.sent();
+                        console.log(friends);
+                        return [4 /*yield*/, this.db.collection("UserData").find({ $and: [{ username: rgx }, { _id: { $ne: new mongodb_1.ObjectId(this._id) } }, { _id: { $nin: friends } }] }).toArray()
                                 .then(function (doc) {
                                 return doc;
                             })];
-                    case 1:
-                        //Problem here with the searching of users.
+                    case 2:
                         users = _a.sent();
                         return [2 /*return*/, users];
                 }
