@@ -47,7 +47,7 @@ app.post('/sessions/setSlot', async (req:any, res:any)=>{
     console.log(req.body._id);
     let timeSlot = new TimeManagement(req.body._id, db);
     let data;
-    if(req.body.users == "[]"){
+    if(req.body.users == "[]" || req.body.Date == "" || req.body.startTime == "" || req.body.endTime == "" || req.body.GroupName == ""){
         data = "NULL";
     }else{
         //The user will send the user ids which they want to  to the group.
