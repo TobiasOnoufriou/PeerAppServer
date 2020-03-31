@@ -52,7 +52,6 @@ var UserSearch = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         user = this.name;
-                        console.log(user);
                         this._id = this._id.substring(1, this._id.length - 1);
                         rgx = new RegExp("^" + user);
                         return [4 /*yield*/, this.db.collection("UserData").find({ $and: [{ username: rgx }, { _id: { $ne: new mongodb_1.ObjectId(this._id) } }] }).toArray()
@@ -90,10 +89,10 @@ var UserSearch = /** @class */ (function () {
                                             }
                                             else {
                                                 console.log(_id);
-                                                _this.db.collection("UserData").updateOne({ _id: new mongodb_1.ObjectId(usernameNew) }, { $push: { friend_id: _id } }, function (err, res) {
+                                                _this.db.collection("UserData").updateOne({ _id: new mongodb_1.ObjectId(usernameNew) }, { $push: { friend_id: { _id: _id } } }, function (err, res) {
                                                     if (err)
                                                         throw err;
-                                                    console.log("uploaded");
+                                                    console.log("Thing Uploaded");
                                                     return true;
                                                 });
                                                 break;

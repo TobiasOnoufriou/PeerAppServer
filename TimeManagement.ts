@@ -105,8 +105,7 @@ export class TimeManagement{
         console.log(users);
         for(var user of users){
             console.log(user);
-            await usernames.push(await this.db.collection("UserData").findOne({"_id": new ObjectId(user._id)}).then((user:any) =>{
-                console.log(user.username);    
+            await usernames.push(await this.db.collection("UserData").findOne({"_id": new ObjectId(user._id)}).then((user:any) =>{  
                 return user.username;
             }));
         }

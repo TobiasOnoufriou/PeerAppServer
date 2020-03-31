@@ -197,7 +197,6 @@ var TimeManagement = /** @class */ (function () {
                         console.log(user);
                         _b = (_a = usernames).push;
                         return [4 /*yield*/, this.db.collection("UserData").findOne({ "_id": new mongodb_1.ObjectId(user._id) }).then(function (user) {
-                                console.log(user.username);
                                 return user.username;
                             })];
                     case 2: return [4 /*yield*/, _b.apply(_a, [_c.sent()])];

@@ -22,13 +22,11 @@ export class UserSearch{
     async searchUsername(): Promise<string[]>{
         let user:string = this.name;
         let users;
-        console.log(user);
         this._id = this._id.substring(1, this._id.length -1);
         var rgx = new RegExp("^" + user);
         //Problem here with the searching of users.
         return await this.db.collection("UserData").find({$and:[{username: rgx}, {_id:{$ne: new ObjectId(this._id)}}]}).toArray()
-        .then((err, doc) =>{
-            if(err)throw err;
+        .then((doc) =>{
             return doc;
         });
     }
@@ -49,9 +47,9 @@ export class UserSearch{
                         break;
                     }else{
                         console.log(_id);
-                        this.db.collection("UserData").updateOne({_id: new ObjectId(usernameNew)},{$push:{friend_id:_id}},function(err,res){
+                        this.db.collection("UserData").updateOne({_id: new ObjectId(usernameNew)},{$push:{friend_id:{_id}}},function(err,res){
                             if(err) throw err;
-                            console.log("uploaded");
+                            console.log("Thing Uploaded");
                             return true;
                         });
                         break;
