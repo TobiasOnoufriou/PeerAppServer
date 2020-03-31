@@ -134,21 +134,24 @@ app.post('/login/setupHome', function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
-app.post('/register', function (req, res) {
-    console.log(req.query);
-    var reg = new Register_1.Register(db, req, res);
-    var created = reg.sendData();
-    console.log(created);
-    //Validation for the user to know that an account has been created.
-    if (created) {
-        res.send("true");
-    }
-    else {
-        //Temporary till app is fully set up
-        res.send("false");
-    }
-    res.end();
-});
+app.post('/register', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var reg, created;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                reg = new Register_1.Register(db, req, res);
+                return [4 /*yield*/, reg.sendData().then(function (doc) {
+                        return doc;
+                    })];
+            case 1:
+                created = _a.sent();
+                //Validation for the user to know that an account has been created.
+                res.send(created);
+                res.end();
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.post('/home/Requests', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var time, data;
     return __generator(this, function (_a) {

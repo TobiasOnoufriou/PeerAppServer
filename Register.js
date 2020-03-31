@@ -70,16 +70,19 @@ var Register = /** @class */ (function () {
     //Needs to be changed towards not being websocket.
     Register.prototype.sendData = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var giveData, temp;
+            var data, giveData, temp;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        data = false;
                         console.log("Sending data");
                         //this.checkConfirmEmail(this.userdata.email, this.userdata.confirmEmail);
                         this.registerStatus.email = true;
                         this.checkPassword(this.userdata.password, this.userdata.confirmPassword);
                         this.checkName(this.userdata.firstname, this.userdata.secondname);
-                        return [4 /*yield*/, this.checkIfUsernameExists(this.userdata.username)];
+                        return [4 /*yield*/, this.checkIfUsernameExists(this.userdata.username).then(function (doc) {
+                                return doc;
+                            })];
                     case 1:
                         _a.sent();
                         this.userdata["friend_id"] = [];
@@ -88,16 +91,15 @@ var Register = /** @class */ (function () {
                         giveData = Object.keys(temp).every(function (k) {
                             return temp[k];
                         });
-                        if (giveData) {
+                        if (!giveData) {
                             //User was registered.  
                             this.MongoClient.collection("UserData").insertOne(this.userdata);
-                            return [2 /*return*/, true];
+                            data = true;
                         }
                         else {
-                            //this.res.send("Cannot create user");
-                            return [2 /*return*/, false];
+                            data = false;
                         }
-                        return [2 /*return*/];
+                        return [2 /*return*/, data];
                 }
             });
         });

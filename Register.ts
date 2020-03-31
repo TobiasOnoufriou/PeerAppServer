@@ -39,12 +39,15 @@ export class Register {
     }
     //Needs to be changed towards not being websocket.
     async sendData(): Promise<Boolean>{
+        let data = false;
         console.log("Sending data");
         //this.checkConfirmEmail(this.userdata.email, this.userdata.confirmEmail);
         this.registerStatus.email = true;
         this.checkPassword(this.userdata.password, this.userdata.confirmPassword);
         this.checkName(this.userdata.firstname, this.userdata.secondname);
-        await this.checkIfUsernameExists(this.userdata.username);
+        await this.checkIfUsernameExists(this.userdata.username).then((doc)=>{
+            return doc;
+        });
         this.userdata["friend_id"] = [];
         var giveData;
         var temp:any = this.registerStatus;
@@ -52,14 +55,16 @@ export class Register {
         giveData = Object.keys(temp).every(function(k){
             return temp[k];
         });
+        
         if(giveData){
             //User was registered.  
             this.MongoClient.collection("UserData").insertOne(this.userdata);
-            return true;
+            data = true;
         }else{
-            //this.res.send("Cannot create user");
-            return false;
+            data = false;
         }
+        
+        return data;
     } 
 
     //May not be used but for future developments.

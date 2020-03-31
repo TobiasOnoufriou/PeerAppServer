@@ -84,18 +84,14 @@ app.post('/login/setupHome',async (req:any, res:any)=>{
     res.end();
 });
 
-app.post('/register', (req:any, res: any)=>{
-    console.log(req.query);
+app.post('/register', async (req:any, res: any)=>{
     let reg = new Register(db, req, res);
-    let created = reg.sendData();
-    console.log(created);
+    let created = await reg.sendData().then((doc:any) =>{
+        
+        return doc;
+    });
     //Validation for the user to know that an account has been created.
-    if(created){
-        res.send("true");
-    }else{
-        //Temporary till app is fully set up
-        res.send("false");
-    }
+    res.send(created);
     res.end();
 
 });
