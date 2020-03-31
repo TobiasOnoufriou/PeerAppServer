@@ -22,11 +22,20 @@ export class UserSearch{
     async searchUsername(): Promise<string[]>{
         let user:string = this.name;
         let users;
+        console.log(user);
         this._id = this._id.substring(1, this._id.length -1);
         var rgx = new RegExp("^" + user);
+        let _friendsId = new Array();
         //Problem here with the searching of users.
-        users = await this.db.collection("UserData").find({$and:[{username: rgx}, {_id:{$ne: new ObjectId(this._id)}}]}).toArray()
-        .then((doc) =>{
+        let friendDoc = await this.db.collection("UserData").findOne({_id:new ObjectId(this._id)}).then((userDoc:any)=>{
+            return userDoc.friend_id;
+        });
+        for(var i of friendDoc){
+            
+           _friendsId.push(new ObjectId(i._id));
+        }
+        users = await this.db.collection("UserData").find({$and:[{username: rgx}, {_id:{$ne: new ObjectId(this._id)}},{_id:{$nin:_friendsId}}]}).toArray()
+        .then(doc =>{
             return doc;
         });
         return users;

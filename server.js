@@ -84,7 +84,7 @@ app.post('/sessions/setSlot', function (req, res) { return __awaiter(void 0, voi
     return __generator(this, function (_a) {
         console.log(req.body._id);
         timeSlot = new TimeManagement_1.TimeManagement(req.body._id, db);
-        if (req.body.users == "[]") {
+        if (req.body.users == "[]" || req.body.Date == "" || req.body.startTime == "" || req.body.endTime == "" || req.body.GroupName == "") {
             data = "NULL";
         }
         else {

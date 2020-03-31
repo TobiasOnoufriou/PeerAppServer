@@ -47,19 +47,29 @@ var UserSearch = /** @class */ (function () {
     //May return the _id.
     UserSearch.prototype.searchUsername = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var user, users, rgx;
+            var user, users, rgx, _friendsId, friendDoc, _i, friendDoc_1, i;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         user = this.name;
+                        console.log(user);
                         this._id = this._id.substring(1, this._id.length - 1);
                         rgx = new RegExp("^" + user);
-                        return [4 /*yield*/, this.db.collection("UserData").find({ $and: [{ username: rgx }, { _id: { $ne: new mongodb_1.ObjectId(this._id) } }] }).toArray()
+                        _friendsId = new Array();
+                        return [4 /*yield*/, this.db.collection("UserData").findOne({ _id: new mongodb_1.ObjectId(this._id) }).then(function (userDoc) {
+                                return userDoc.friend_id;
+                            })];
+                    case 1:
+                        friendDoc = _a.sent();
+                        for (_i = 0, friendDoc_1 = friendDoc; _i < friendDoc_1.length; _i++) {
+                            i = friendDoc_1[_i];
+                            _friendsId.push(new mongodb_1.ObjectId(i._id));
+                        }
+                        return [4 /*yield*/, this.db.collection("UserData").find({ $and: [{ username: rgx }, { _id: { $ne: new mongodb_1.ObjectId(this._id) } }, { _id: { $nin: _friendsId } }] }).toArray()
                                 .then(function (doc) {
                                 return doc;
                             })];
-                    case 1:
-                        //Problem here with the searching of users.
+                    case 2:
                         users = _a.sent();
                         return [2 /*return*/, users];
                 }
