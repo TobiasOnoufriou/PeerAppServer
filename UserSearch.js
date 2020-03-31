@@ -59,10 +59,9 @@ var UserSearch = /** @class */ (function () {
                                 .then(function (doc) {
                                 return doc;
                             })];
-                    case 1:
-                        //Problem here with the searching of users.
-                        users = _a.sent();
-                        return [2 /*return*/, users];
+                    case 1: 
+                    //Problem here with the searching of users.
+                    return [2 /*return*/, _a.sent()];
                 }
             });
         });

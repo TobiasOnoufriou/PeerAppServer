@@ -26,11 +26,10 @@ export class UserSearch{
         this._id = this._id.substring(1, this._id.length -1);
         var rgx = new RegExp("^" + user);
         //Problem here with the searching of users.
-       users = await this.db.collection("UserData").find({$and:[{username: rgx}, {_id:{$ne: new ObjectId(this._id)}}]}).toArray()
+        return await this.db.collection("UserData").find({$and:[{username: rgx}, {_id:{$ne: new ObjectId(this._id)}}]}).toArray()
         .then(doc =>{
             return doc;
         });
-        return users;
     }
     async addFriend(friendusername:string, usernameNew:string):Promise<Boolean>{
         console.log(usernameNew);

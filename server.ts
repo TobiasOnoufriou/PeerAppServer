@@ -94,19 +94,6 @@ app.post('/register', (req:any, res: any)=>{
     res.end();
 
 });
-
-
-
-//-------- NEW REQUESTS WHICH ARE NEEED ----------////////
-//post('/friend/newRequest') this will be called on the home page every time the user sets up the app. May put it in a new class call Home.
-//post('/home/Requests) which will check for all requests.
-///This will be done when the users accepts a request for a meeting
-//post('/sessions/acceptRequest')
-//post('/sessions/denyRequest')
-//post('/sessions/checkSessionSuccessful')
-//These to requests are a maybe due to not having request at the moment for friends.
-//post('/friend/acceptRequest')
-//post('/friend/denyRequest')
 app.post('/home/Requests', async (req:any, res:any)=>{
     console.log(req.body._id)
     let time = new TimeManagement(req.body._id, db);
