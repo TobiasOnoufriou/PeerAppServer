@@ -42,8 +42,8 @@ export class UserSearch{
             console.log(_id);
             this.db.collection("UserData").findOne({_id: new ObjectId(usernameNew)}).then((doc:any)=>{
                 if(doc.friend_id.length > 0){
-                for(var key in doc.friend_id){
-                    if(doc.friend_id.hasOwnProperty(key)){
+                for(var key of doc.friend_id){
+                    if(doc.friend_id.hasOwnProperty(_id)){
                         console.log("Has key");
                         return false;
                         break;
