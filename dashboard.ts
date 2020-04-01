@@ -43,7 +43,11 @@ export class dashboard
             temp["Creator"] = false;
             documents[i] = temp;
         }
-        
+        for(var i = 0; i < acceptedDoc.length; i++){
+            var temp = acceptedDoc[i];
+            temp["Creator"] = false;
+            acceptedDoc[i] = temp;
+        }
         adminDocs = adminDocs.concat(documents);
         adminDocs = adminDocs.concat(acceptedDoc);
         let jsonIndex = {'Sessions': adminDocs};
