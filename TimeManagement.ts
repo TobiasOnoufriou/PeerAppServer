@@ -69,10 +69,10 @@ export class TimeManagement{
         //_id = "5e31956f345b173618fc3ec1" TEST _id
         //This will delete the value within the JSON array.
         queryDelete["Requested."+new ObjectId(this.user)] = null;
-        this.db.collection("Sessions").updateOne({_id: new ObjectId(id)},{$pull: {Requested: new ObjectId(this.user)}}, (err:any, collection:any)=>{
+        await this.db.collection("Sessions").updateOne({_id: new ObjectId(id)},{$pull: {Requested: new ObjectId(this.user)}}, (err:any, collection:any)=>{
             if(err) throw err;
         }); 
-        this.db.collection("Sessions").updateOne({_id:new ObjectId(id)},{$push:{"GroupAccepted":new ObjectId(this.user)}}, (err:any, collection:any)=>{
+        await this.db.collection("Sessions").updateOne({_id:new ObjectId(id)},{$push:{"GroupAccepted":new ObjectId(this.user)}}, (err:any, collection:any)=>{
             if(err) throw err;
             console.log("Updating");
         });

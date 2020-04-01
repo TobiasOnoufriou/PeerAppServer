@@ -44,7 +44,8 @@ export class dashboard
             documents[i] = temp;
         }
         
-        adminDocs = adminDocs.concat(documents).concat(acceptedDoc);
+        adminDocs = adminDocs.concat(documents);
+        adminDocs = adminDocs.concat(acceptedDoc);
         let jsonIndex = {'Sessions': adminDocs};
         console.log(jsonIndex)
         return jsonIndex;

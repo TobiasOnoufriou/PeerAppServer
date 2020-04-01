@@ -124,18 +124,22 @@ var TimeManagement = /** @class */ (function () {
                         //_id = "5e31956f345b173618fc3ec1" TEST _id
                         //This will delete the value within the JSON array.
                         queryDelete["Requested." + new mongodb_1.ObjectId(this.user)] = null;
-                        this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(id) }, { $pull: { Requested: new mongodb_1.ObjectId(this.user) } }, function (err, collection) {
-                            if (err)
-                                throw err;
-                        });
-                        this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(id) }, { $push: { "GroupAccepted": new mongodb_1.ObjectId(this.user) } }, function (err, collection) {
-                            if (err)
-                                throw err;
-                            console.log("Updating");
-                        });
-                        return [4 /*yield*/, this.checkGroupSuccessful(id).then(function (determine) {
+                        return [4 /*yield*/, this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(id) }, { $pull: { Requested: new mongodb_1.ObjectId(this.user) } }, function (err, collection) {
+                                if (err)
+                                    throw err;
                             })];
                     case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.db.collection("Sessions").updateOne({ _id: new mongodb_1.ObjectId(id) }, { $push: { "GroupAccepted": new mongodb_1.ObjectId(this.user) } }, function (err, collection) {
+                                if (err)
+                                    throw err;
+                                console.log("Updating");
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.checkGroupSuccessful(id).then(function (determine) {
+                            })];
+                    case 3:
                         determine = _a.sent();
                         return [2 /*return*/, true];
                 }

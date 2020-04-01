@@ -79,7 +79,8 @@ var dashboard = /** @class */ (function () {
                             temp["Creator"] = false;
                             documents[i] = temp;
                         }
-                        adminDocs = adminDocs.concat(documents).concat(acceptedDoc);
+                        adminDocs = adminDocs.concat(documents);
+                        adminDocs = adminDocs.concat(acceptedDoc);
                         jsonIndex = { 'Sessions': adminDocs };
                         console.log(jsonIndex);
                         return [2 /*return*/, jsonIndex];
